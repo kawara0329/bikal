@@ -17,7 +17,7 @@
 レンタルであれば空いた時間に乗る事が出来て、終わったら返却すればいい。しかも、その都度好きな車種に乗ることが出来るというメリットがあります。  
 しかし、借りられる店舗が近くにない。借りに行くのに電車で行くのは面倒。そもそもレンタル店舗が少ない。  
 など同時にデメリットも浮かびました。  
-そこで、**貸主が店舗では無く個人**であれば、且つ住所での検索や乗りたい車種の絞り込みが出来れば、このような課題をクリアできるのではないかと考えました。実際にバイクを売らずに所有している人の声を聞くと(知人数人にヒアリングした程度です）売るまででは無いがたまにしか乗らなかったり休みの日しか乗らないという人がほとんどでした。  
+そこで、**貸主が店舗では無く個人**であれば、且つ住所での検索や乗りたい車種の絞り込みが出来れば、このような課題をクリアできるのではないかと考えました。実際にバイクを売らずに所有している人にヒアリングを行ったところ、売るまででは無いがたまにしか乗らなかったり休みの日しか乗らないという人がほとんどでした。  
 なぜなら、バイクの免許を取る動機や所有する目的の大多数がツーリングでの気分転換や趣味趣向であることからです。  
 そして、その使わない期間に有効活用が出来たら借主貸主の需要と供給が結ばれる。このようなターゲット（ペルソナ）を繋ぐツールがあればという考えから当アプリの作成に踏み切りました。
 
@@ -33,3 +33,64 @@
 - メッセージ受信時にメールで知らせてくれる機能
 ## *DB設計*
 
+## users テーブル
+
+|Column            |Type       |Options      |
+| email            |string     | null: false |
+| password         |string     | null: false |
+| name             |string     | null: false |
+| postal_code      | string    | null: false |
+| prefectures_id   | integer   | null: false |
+| municipality     | string    | null: false |
+| address          | string    | null: false |
+
+### Association
+has_many :bikes
+has_many :messages
+has_many :rooms, through: :room_users
+has_many :room_users
+
+## bikes テーブル
+
+|Column         |Type        |Options                        |
+| name          | string     | null: false                   |
+| size          | integer    | null: false                   |
+| category_id   | integer    | null: false                   |
+| user          | references | null: false, foreign_key: true|
+
+### Association
+belongs_to :users
+has_many :rooms
+
+## messages テーブル
+
+|Column        |Type        |Options                         |
+| room_id      | references | null: false, foreign_key: true |
+| message      | text       | null: false                    |
+| user_id      | references | null: false, foreign_key: true |
+
+### Association
+belongs_to :users
+belongs_to :rooms
+
+## rooms テーブル
+
+|Column       |Type        |Options                         |
+| user_id     | references | null: false, foreign_key: true |
+| bike_id     | references | null: false, foreign_key: true |
+
+### Association
+has_many :messages
+has_many :users, through: :room_users
+has_many :room_users
+belongs_to :bikes
+
+## room_users テーブル
+
+|Column      |Type        |Options                         |
+| user_id    | references | null: false, foreign_key: true |
+| room_id    | references | null: false, foreign_key: true |
+
+### Association
+belongs_to :users
+belongs_to :rooms
