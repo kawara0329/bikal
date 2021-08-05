@@ -38,11 +38,11 @@
 |Column            |Type       |Options      |
 | email            |string     | null: false |
 | password         |string     | null: false |
-| name             |string     | null: false |
-| postal_code      | string    | null: false |
-| prefectures_id   | integer   | null: false |
-| municipality     | string    | null: false |
-| address          | string    | null: false |
+| nickname         |string     | null: false |
+| postal_code      |string    | null: false |
+| prefectures_id   |integer   | null: false |
+| municipality     |string    | null: false |
+| address          |string    | null: false |
 
 ### Association
 has_many :bikes
