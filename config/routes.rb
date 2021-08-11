@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  get 'bikes/index'
   root to: "bikes#index"
-  resources :bikes, only: [:index, :new]
+  resources :bikes, only: [:index, :new, :create]
 end
