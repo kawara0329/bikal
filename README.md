@@ -59,7 +59,7 @@ has_many :room_users
 | user          | references | null: false, foreign_key: true|
 
 ### Association
-belongs_to :users
+belongs_to :user
 has_many :rooms
 
 ## messages テーブル
