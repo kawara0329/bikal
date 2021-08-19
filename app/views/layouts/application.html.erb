@@ -4,26 +4,12 @@
     <title>Bikal</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
   </head>
 
   <body>
-    <div class="nav__left">
-      <%= link_to image_tag("bike4.png", class: :logo), root_path %>
-    </div>
-    <% if user_signed_in? %>
-      <div class="user_nav__right">
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        <%= link_to "投稿する", new_bike_path, class: "post" %>
-      </div>
-    <% else %>
-      <div class="nav__right">
-      <%= link_to "ログイン", new_user_session_path, class: :nav__btn %>
-      <%= link_to "新規登録", new_user_registration_path, class: :nav__btn %>
-    </div>
-    <% end %>
     <%= yield %>
   </body>
 </html>
