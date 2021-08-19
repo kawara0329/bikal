@@ -12,6 +12,7 @@
   <body>
     <div class="nav__left">
       <%= link_to image_tag("bike4.png", class: :logo), root_path %>
+      <%#= image_tag message.image, class: 'message-image' if message.image.attached? %>
     </div>
     <% if user_signed_in? %>
       <div class="user_nav__right">
